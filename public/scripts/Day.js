@@ -66,8 +66,23 @@ $(document).ready(function () {
 		}
 	};
 
+	var dayIds = [];
+
 	$('#add-day').on('click', function () {
-		new Day();
+		console.log("hey");
+		var newDay = new Day();
+		var dayObj = {
+		hotel: newDay.hotel,
+		restaurants: newDay.restaurant,
+		thingsToDo: newDay.thingsToDo,
+		number: newDay.number
+		};
+		console.log(dayObj);
+		var jsonDay = JSON.stringify(dayObj);
+		$.ajax({type: 'POST', url: '/day', data: jsonDay}, function (day) {
+			dayIds.push(day);
+			console.log(dayIds);
+		});
 	});
 
 	$('#day-title > .remove').on('click', deleteCurrentDay);
