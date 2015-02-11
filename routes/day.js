@@ -20,10 +20,10 @@ dayRouter.post('/', function (req, res, next) {
         thingsToDo: data.thingsToDo
     });
     newDay.save(function(err, day) {
-        if (!err){
+        if (!err) {
             res.send(day._id.toString());
         }
-        else{
+        else {
         	console.log(err);
         	res.send(err);
         }
@@ -36,12 +36,37 @@ dayRouter.get('/:id', function (req, res, next) {
 // DELETE /days/:id
 dayRouter.delete('/:id', function (req, res, next) {
     // deletes a particular day
+    console.log(req.params.id);
+    models.Day.remove({ _id: req.params.id }, function(err) {
+        if (!err) { res.send("success"); }
+        else { res.send(err);}
+    })
 });
+
+dayRouter.use('/:id', function (req, res, next) {
+    req.dayId = req.params.id;
+    next();
+})
 
 dayRouter.use('/:id', attractionRouter);
 // POST /days/:id/hotel
 attractionRouter.post('/hotel', function (req, res, next) {
     // creates a reference to the hotel
+    console.log("id?", req.dayId);
+    console.log("test", req.body);
+    models.Day.findOne({ _id: req.dayId }, function(err, day) {
+        if (!err) { 
+            models.Hotel.findOne( { _id: req.body.attrId }, function(err, hotel) {
+                day.hotel = hotel;
+                day.save(function(err, d) {
+                    if (!err) { 
+                        console.log(hotel);
+                        res.send("success", d.hotel);
+                    }
+                });
+            });
+        }
+    });
 });
 // DELETE /days/:id/hotel
 attractionRouter.delete('/hotel', function (req, res, next) {

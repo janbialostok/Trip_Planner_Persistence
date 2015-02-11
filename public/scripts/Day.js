@@ -64,6 +64,9 @@ $(document).ready(function () {
 			});
 			newCurrent.switchTo();
 			previousDay.eraseButton();
+			$.ajax({type: 'DELETE', url: '/day/' + dayIds[index], success: function(data) {
+				console.log(data);
+			}});
 		}
 	};
 

@@ -14,20 +14,23 @@ var hotelSchema = new mongoose.Schema({
 	name: String,
 	place: [placeSchema],
 	num_stars: {type: Number, min: 1, max: 5},
-	amenities: String
+	amenities: String,
+	attractionType: { type: String, default: 'hotel'}
 });
 
 var thingToDoSchema = new mongoose.Schema({
 	name: String,
 	place: [placeSchema],
-	age_range: String
+	age_range: String,
+	attractionType: { type: String, default: 'thingsToDo'}
 });
 
 var restaurantSchema = new mongoose.Schema({
 	name: String,
 	place: [placeSchema],
 	cuisine: String,
-	price: {type: Number, min: 1, max: 5}
+	price: {type: Number, min: 1, max: 5},
+	attractionType: { type: String, default: 'restaurants'}
 });
 
 var daySchema = new mongoose.Schema({

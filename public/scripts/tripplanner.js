@@ -19,6 +19,15 @@ $(document).ready(function () {
 				dayIds.push(day);
 				console.log(dayIds);
 			}});
+		} else {
+			for (var i=0, len = data.length; i < len; i++) {
+				if (i==0) {
+					dayIds.push(data[i]._id.toString());
+				} else {
+					dayIds.push(data[i]._id.toString());
+					new Day();
+				}
+			};
 		}
 	}});
 	currentDay.$button.addClass('current-day');
