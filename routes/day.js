@@ -5,25 +5,29 @@ var models = require('../models');
 
 // GET /days
 dayRouter.get('/', function (req, res, next) {
-    // serves up all days as json
+    models.Day.find().exec(function(err, days){
+    	res.send(days);
+    });
+});
+// POST /days
+dayRouter.post('/', function (req, res, next) {
+    var data = req.body;
     console.log(data);
-    var data = JSON.parse(req.body.data);
-    var newDay = new model.Day({
+    var newDay = new models.Day({
         number: data.number,
         hotel: data.hotel,
         restaurants: data.restaurants,
         thingsToDo: data.thingsToDo
     });
     newDay.save(function(err, day) {
-        if(err) res.send(err);
-        else {
+        if (!err){
             res.send(day._id.toString());
         }
-    })
-});
-// POST /days
-dayRouter.post('/', function (req, res, next) {
-    // creates a new day and serves it as json
+        else{
+        	console.log(err);
+        	res.send(err);
+        }
+    });
 });
 // GET /days/:id
 dayRouter.get('/:id', function (req, res, next) {

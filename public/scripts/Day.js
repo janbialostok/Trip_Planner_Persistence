@@ -1,4 +1,5 @@
 var Day;
+var dayIds = [];
 
 $(document).ready(function () {
 	Day = function () {
@@ -66,21 +67,13 @@ $(document).ready(function () {
 		}
 	};
 
-	var dayIds = [];
-
 	$('#add-day').on('click', function () {
-		console.log("hey");
 		var newDay = new Day();
 		var dayObj = {
-		hotel: newDay.hotel,
-		restaurants: newDay.restaurant,
-		thingsToDo: newDay.thingsToDo,
-		number: newDay.number
+			number: newDay.number
 		};
-		console.log(dayObj);
-		var jsonDay = JSON.stringify(dayObj);
-		$.ajax({type: 'POST', url: '/day', data: jsonDay}, function (day) {
-			dayIds.push(day);
+		$.ajax({type: 'POST', url: '/day', data: dayObj, error: function(obj, status, err){console.log(err)}}).done(function(data){
+			dayIds.push(data);
 			console.log(dayIds);
 		});
 	});
