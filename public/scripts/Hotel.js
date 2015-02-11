@@ -12,16 +12,10 @@ $(document).ready(function () {
 		});
 		// remove a hotel from the current day
 		Hotel.prototype.delete = function () {
-			var hotelData = $(this).prev().data();
-			console.log($(this).prev());
-			var dayNum = $('#day-title span').text().split(' ')[1];
-			var hotelId = '/day/' + dayIds[dayNum-1] + '/' + hotelData.attractionType;
 			currentDay.hotel
 				.eraseMarker()
 				.eraseItineraryItem();
 			currentDay.hotel = null;
-			// $.ajax({type: 'DELETE', url: 'days' )
-			// };
 		};
 	// construct a new hotel for the current day
 	});

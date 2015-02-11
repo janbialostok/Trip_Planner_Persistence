@@ -17,6 +17,18 @@ $(document).ready(function () {
 		var self = this;
 		this.$button.on('click', function () {
 			self.switchTo();
+			var dayId = $("#day-title span").text().split(" ")[1];
+			//if (days[dayId - 1].hotel == null)
+			// $.ajax({ type: "GET", url: "/day/" + dayIds[dayId - 1], success: function(data){
+			// 	//console.log(data.hotel, data.restaurants, data.thingsToDo);
+			// 	 days[dayId - 1].hotel = new Hotel(data.hotel);
+			// 	 data.restaurants.forEach(function(r){
+			// 	 	days[dayId - 1].restaurants.push(new Restaurant(r));
+			// 	 });
+			// 	 data.thingsToDo.forEach(function(t){
+			// 	 	days[dayId - 1].thingsToDo.push(new ThingToDo(t));
+			// 	 });
+			// }});
 		});
 		return this;
 	};
@@ -65,7 +77,7 @@ $(document).ready(function () {
 			newCurrent.switchTo();
 			previousDay.eraseButton();
 			$.ajax({type: 'DELETE', url: '/day/' + dayIds[index], success: function(data) {
-				console.log(data);
+				dayIds.splice(index, 1);
 			}});
 		}
 	};
